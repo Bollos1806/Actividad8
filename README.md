@@ -15,18 +15,23 @@ Exploración de personajes organizados por serie.
 Sistema de sugerencias basado en intereses o series favoritas.
 Almacenamiento local con Room y sincronización en la nube con Firebase.
 Inclusión de pruebas unitarias y validación con usuarios.
+
  Alcance
+
 El proyecto incluirá:
 
 Arquitectura limpia y organizada.
 Persistencia de información tanto en almacenamiento local como en la nube.
 Diseño responsivo que se adapte a distintos tamaños de pantalla.
 Documentación técnica, incluyendo instrucciones de uso y detalles de implementación.
+
 Aspectos fuera del alcance en esta fase:
 
 No se desarrollará una versión para dispositivos iOS.
 No se incorporarán funciones avanzadas como inteligencia artificial o reconocimiento de voz.
+
  Beneficiarios
+
 Estudiantes y desarrolladores que buscan un ejemplo concreto de desarrollo de aplicaciones Android desde cero.
 Comunidad fan del anime que podrá acceder a una herramienta pensada para su entretenimiento y organización de contenido.
 Instituciones educativas interesadas en mostrar un caso de proyecto completo, integrador y enfocado en soluciones tecnológicas aplicables a intereses culturales populares.
