@@ -2,7 +2,17 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.Actividad8" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">#CAC2D1</item>
+        <item name="colorPrimaryVariant">#100F10</item>
+        <item name="colorOnPrimary">#0B0A0A</item>
+
+        <item name="colorSecondary">#F2AEC7</item>
+        <item name="colorOnSecondary">#090808</item>
+
+        <item name="android:colorBackground">#DEDADA</item>
+        <item name="colorSurface">#D9D7D7</item>
+        <item name="colorOnBackground">#BFDAF2</item>
+
     </style>
 
     <style name="Theme.Actividad8" parent="Base.Theme.Actividad8" />
