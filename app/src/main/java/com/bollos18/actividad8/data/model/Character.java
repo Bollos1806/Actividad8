@@ -1,7 +1,10 @@
-package com.bollos18.actividad8;
+package com.bollos18.actividad8.data.model;
+
+import android.os.Parcelable;
 
 public class Character {
 
+    public static final Parcelable.Creator<Character> CREATOR =;
     private String id;
     private String animeId;
     private String name;

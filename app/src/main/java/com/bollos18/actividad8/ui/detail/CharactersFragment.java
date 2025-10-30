@@ -1,4 +1,4 @@
-package com.bollos18.actividad8.detail;
+package com.bollos18.actividad8.ui.detail;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bollos18.actividad8.R;
 import com.bollos18.actividad8.data.model.Anime;
 
+import java.util.Collections;
+
 
 public class CharactersFragment extends Fragment {
 
@@ -23,7 +25,7 @@ public class CharactersFragment extends Fragment {
     public static CharactersFragment newInstance(Anime anime) {
         CharactersFragment fragment = new CharactersFragment();
         Bundle args = new Bundle();
-        args.putSerializable(ARG_ANIME, anime);
+        args.putSerializable(ARG_ANIME, "anime");
         fragment.setArguments(args);
         return fragment;
     }
@@ -52,7 +54,7 @@ public class CharactersFragment extends Fragment {
         if (anime != null && anime.getCharacters() != null) {
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-            CharactersAdapter adapter = new CharactersAdapter(anime.getCharacters());
+            CharactersAdapter adapter = new CharactersAdapter(Collections.singletonList(anime.getCharacters()));
             recyclerView.setAdapter(adapter);
 
             recyclerView.setHasFixedSize(true);

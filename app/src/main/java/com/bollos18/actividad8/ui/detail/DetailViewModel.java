@@ -1,23 +1,20 @@
-package com.bollos18.actividad8.detail;
+package com.bollos18.actividad8.ui.detail;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 import com.bollos18.actividad8.data.model.Anime;
 import com.bollos18.actividad8.data.repository.AnimeRepository;
-import dagger.hilt.android.lifecycle.HiltViewModel;
-import javax.inject.Inject;
 
-@HiltViewModel
 public class DetailViewModel extends ViewModel {
 
-    private final AnimeRepository repository;
+    public final LiveData<Anime> animeDetail;
 
-    @Inject
-    public DetailViewModel(AnimeRepository repository) {
-        this.repository = repository;
+    public DetailViewModel(AnimeRepository repository, long animeId) {
+        this.animeDetail = repository.getAnimeById(animeId);
+
     }
 
-    public LiveData<Anime> getAnimeDetails(long animeId) {
-        return repository.getAnimeById(animeId);
+    public LiveData<Anime> getAnimeDetail() {
+        return animeDetail;
     }
 }

@@ -1,4 +1,4 @@
-package com.bollos18.actividad8.ui.detail;
+package com.bollos18.actividad8.ui.home;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,16 +13,13 @@ import androidx.navigation.fragment.FragmentNavigator;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.bollos18.actividad8.AnimeAdapter;
+import com.bollos18.actividad8.ui.list.AnimeAdapter;
 import com.bollos18.actividad8.R;
 import com.bollos18.actividad8.data.model.Anime;
-import dagger.hilt.android.AndroidEntryPoint;
-
-@AndroidEntryPoint
 public class HomeFragment extends Fragment implements AnimeAdapter.OnItemClickListener {
 
     private HomeViewModel viewModel;
+
     private AnimeAdapter adapter;
     private RecyclerView recyclerView;
     private NavController navController;
@@ -44,6 +41,7 @@ public class HomeFragment extends Fragment implements AnimeAdapter.OnItemClickLi
         super.onViewCreated(view, savedInstanceState);
 
         navController = NavHostFragment.findNavController(this);
+        // La inicialización del ViewModel es estándar y no depende de Hilt. ¡Perfecto!
         viewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         recyclerView = view.findViewById(R.id.recyclerViewAnimeList);
         setupRecyclerView();
@@ -68,15 +66,14 @@ public class HomeFragment extends Fragment implements AnimeAdapter.OnItemClickLi
             }
         });
     }
+
     @Override
     public void onItemClick(Anime anime, View sharedElement) {
-        HomeFragmentDirections.ActionHomeFragmentToDetailFragment action =
-                HomeFragmentDirections.actionHomeFragmentToDetailFragment(anime);
-
+        Bundle args = new Bundle();
+        args.putParcelable("anime", anime);
         FragmentNavigator.Extras extras = new FragmentNavigator.Extras.Builder()
                 .addSharedElement(sharedElement, sharedElement.getTransitionName())
                 .build();
-
-        navController.navigate(action.getActionId(), action.getArguments(), null, extras);
+        navController.navigate(R.id.action_homeFragment_to_detailFragment, args, null, extras);
     }
 }

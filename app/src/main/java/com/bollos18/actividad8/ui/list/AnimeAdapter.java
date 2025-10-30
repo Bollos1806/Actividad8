@@ -1,4 +1,6 @@
-package com.bollos18.actividad8;
+package com.bollos18.actividad8.ui.list;
+
+import com.bollos18.actividad8.data.model.Anime;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -6,18 +8,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.ListAdapter;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.bollos18.actividad8.R;
-import com.bollos18.actividad8.data.model.Anime;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
+public class AnimeAdapter extends ListAdapter<Anime, AnimeAdapter.AnimeViewHolder> {
 
-public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.AnimeViewHolder> {
-
-    private List<Anime> animeList = new ArrayList<>();
     private final OnItemClickListener listener;
 
     public interface OnItemClickListener {
@@ -25,60 +22,56 @@ public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.AnimeViewHol
     }
 
     public AnimeAdapter(OnItemClickListener listener) {
+        super(DIFF_CALLBACK);
         this.listener = listener;
-    }
-    public void submitList(List<Anime> newAnimeList) {
-        this.animeList = newAnimeList;
-        notifyDataSetChanged();
     }
 
     @NonNull
     @Override
     public AnimeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_anime_card, parent, false);
+                .inflate(R.layout.item_anime, parent, false);
         return new AnimeViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull AnimeViewHolder holder, int position) {
-        Anime anime = animeList.get(position);
-        holder.bind(anime, listener);
+        Anime currentAnime = getItem(position);
+        holder.bind(currentAnime, listener);
     }
+    public static class AnimeViewHolder extends RecyclerView.ViewHolder {
+        public final ImageView coverImageView;
+        public final TextView titleTextView;
 
-    @Override
-    public int getItemCount() {
-        return animeList.size();
-    }
-    static class AnimeViewHolder extends RecyclerView.ViewHolder {
-        private final ImageView imageViewPoster;
-        private final TextView textViewTitle;
-        private final TextView textViewRating;
-
-        public AnimeViewHolder(@NonNull View itemView) {
-            super(itemView);
-            imageViewPoster = itemView.findViewById(R.id.imageViewPoster);
-            textViewTitle = itemView.findViewById(R.id.textViewTitle);
-            textViewRating = itemView.findViewById(R.id.textViewRating);
+        public AnimeViewHolder(View view) {
+            super(view);
+            coverImageView = view.findViewById(R.id.coverImageView);
+            titleTextView = view.findViewById(R.id.titleTextView);
         }
 
         public void bind(final Anime anime, final OnItemClickListener listener) {
-            Glide.with(itemView.getContext())
-                    .load(anime.getPosterUrl())
-                    .placeholder(R.drawable.ic_placeholder_anime)
-                    .error(R.drawable.ic_placeholder_anime)
-                    .transition(DrawableTransitionOptions.withCrossFade())
-                    .into(imageViewPoster);
+            titleTextView.setText(anime.getTitle());
 
-            textViewTitle.setText(anime.getTitle());
-            String formattedRating = String.format(Locale.getDefault(), "%.1f", anime.getRating());
-            textViewRating.setText(formattedRating);
-            String transitionName = "poster_" + anime.getId();
-            imageViewPoster.setTransitionName(transitionName);
 
             itemView.setOnClickListener(v -> {
-                listener.onItemClick(anime, imageViewPoster);
+                if (listener != null) {
+                    listener.onItemClick(anime, coverImageView);
+                }
             });
+
+            coverImageView.setTransitionName("anime_image_" + anime.getId());
         }
     }
+
+    private static final DiffUtil.ItemCallback<Anime> DIFF_CALLBACK = new DiffUtil.ItemCallback<Anime>() {
+        @Override
+        public boolean areItemsTheSame(@NonNull Anime oldItem, @NonNull Anime newItem) {
+            return oldItem.getId() == newItem.getId();
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull Anime oldItem, @NonNull Anime newItem) {
+            return oldItem.equals(newItem);
+        }
+    };
 }

@@ -1,4 +1,4 @@
-package com.bollos18.actividad8.detail;
+package com.bollos18.actividad8.ui.detail;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

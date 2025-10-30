@@ -1,4 +1,4 @@
-package com.bollos18.actividad8.detail;
+package com.bollos18.actividad8.ui.detail;
 
 import android.view.LayoutInflater;
 import android.view.View;

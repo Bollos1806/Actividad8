@@ -13,6 +13,6 @@
 
         <color name="background_light">#FAFAFA</color>
         <color name="background_dark">#263238</color>
-        <color name="text_primary">#212121</color>
+        <color name="text_primary">#000000</color>
         <color name="text_secondary">#757575</color>
     </resources>
